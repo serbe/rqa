@@ -472,9 +472,9 @@ pub struct Preferences {
 #[repr(u8)]
 pub enum ScanDir {
     /// Download to the monitored folder
-    Zero = 0,
+    Monitored = 0,
     /// Download to the default save path
-    One = 1,
+    Default = 1,
 }
 
 #[derive(Debug, Serialize_repr, Deserialize_repr)]

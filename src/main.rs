@@ -1,3 +1,8 @@
+use std::collections::HashMap;
+
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+// use crate::sync::GetPeersData;
 use tokio::runtime::Runtime;
 use tokio::time::{sleep, Duration};
 
@@ -13,6 +18,8 @@ pub mod log;
 pub mod request;
 pub mod response;
 pub mod sync;
+pub mod torrents;
+pub mod transfer;
 
 async fn run() -> Result<(), Error> {
     let uri = dotenv::var("QAPI_TARGET").expect("not set QAPI_TARGET");
@@ -26,7 +33,19 @@ async fn run() -> Result<(), Error> {
     dbg!(client.get_version().await?);
     dbg!(client.get_api_version().await?);
 
-    dbg!(client.get_main_data(Default::default()).await?);
+    // dbg!(client.get_main_data(Default::default()).await?);
+
+    // dbg!(client.toggle_alt_speed().await?);
+    // dbg!(client.get_download_limit().await?);
+    // dbg!(client.set_download_limit(512000).await?);
+    // dbg!(client.get_download_limit().await?);
+    // dbg!(client.toggle_alt_speed().await?);
+
+    // let req = crate::sync::GetPeersData {
+    //     rid: 45,
+    //     hash: "14061948332125cc81b0c7466d2bd33ee0f26f46".to_string(),
+    // };
+    // dbg!(client.get_peers_data(req).await?);
 
     // dbg!(client);
 

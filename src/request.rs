@@ -114,6 +114,15 @@ pub enum Method {
     Main,
     Peers,
     MainData,
+    TorrentPeers,
+    Info,
+    SpeedLimitsMode,
+    ToggleSpeedLimitsMode,
+    DownloadLimit,
+    SetDownloadLimit,
+    UploadLimit,
+    SetUploadLimit,
+    BanPeers,
 }
 
 impl fmt::Display for Method {
@@ -131,6 +140,15 @@ impl fmt::Display for Method {
             Method::Main => write!(f, "log/main"),
             Method::Peers => write!(f, "log/peers"),
             Method::MainData => write!(f, "sync/maindata"),
+            Method::TorrentPeers => write!(f, "sync/torrentPeers"),
+            Method::Info => write!(f, "transfer/info"),
+            Method::SpeedLimitsMode => write!(f, "transfer/speedLimitsMode"),
+            Method::ToggleSpeedLimitsMode => write!(f, "transfer/toggleSpeedLimitsMode"),
+            Method::DownloadLimit => write!(f, "transfer/downloadLimit"),
+            Method::SetDownloadLimit => write!(f, "transfer/setDownloadLimit"),
+            Method::UploadLimit => write!(f, "transfer/uploadLimit"),
+            Method::SetUploadLimit => write!(f, "transfer/setUploadLimit"),
+            Method::BanPeers => write!(f, "transfer/banPeers"),
         }
     }
 }

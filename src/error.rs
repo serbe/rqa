@@ -12,6 +12,10 @@ pub enum Error {
     WrongStatusCode,
     #[error("Error convert bytes to string")]
     BytesToString(#[from] std::string::FromUtf8Error),
+    #[error("Torrent hash was not found")]
+    NoTorrentHash,
+    #[error("Error convert string to i64")]
+    StringToInt(#[from] std::num::ParseIntError),
 
     #[error("NC error")]
     Nc(#[from] netc::error::Error),
