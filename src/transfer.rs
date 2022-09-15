@@ -27,14 +27,6 @@ pub struct TransferInfo {
     pub connection_status: ConnectionStatus,
 }
 
-// In addition to the above in partial data requests (see Get partial data for more info):
-
-// Property	Type	Description
-// queueing	bool	True if torrent queueing is enabled
-// use_alt_speed_limits	bool	True if alternative speed limits are enabled
-// refresh_interval	integer	Transfer list refresh interval (milliseconds)
-// Possible values of connection_status:
-
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ConnectionStatus {
@@ -74,7 +66,7 @@ impl Client {
     ///
     pub async fn get_transfer_info(&mut self) -> Result<TransferInfo, Error> {
         let request = ApiRequest {
-            method: Method::Info,
+            method: Method::TransferInfo,
             arguments: None,
         };
         let response = self.send_request(&request).await?;
@@ -234,10 +226,10 @@ impl Client {
     /// HTTP Status Code	Scenario
     /// 200	All scenarios
     ///
-    pub async fn ban_peers(&mut self, value: String) -> Result<String, Error> {
+    pub async fn ban_peers(&mut self, peers: &str) -> Result<String, Error> {
         let request = ApiRequest {
             method: Method::BanPeers,
-            arguments: Some(Arguments::Form(value)),
+            arguments: Some(Arguments::Form(format!("peers={}", peers))),
         };
         let response = self.send_request(&request).await?;
         check_default_status(&response, String::from_utf8(response.body().to_vec())?)

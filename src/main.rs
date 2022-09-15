@@ -1,13 +1,14 @@
-use std::collections::HashMap;
+// use std::collections::HashMap;
 
-use serde::{Deserialize, Serialize};
-use serde_json::json;
+// use serde::{Deserialize, Serialize};
+// use serde_json::json;
 // use crate::sync::GetPeersData;
 use tokio::runtime::Runtime;
 use tokio::time::{sleep, Duration};
 
 use client::Client;
 use error::Error;
+
 // use torrent::{TorrentAddArgs, TorrentGetArgs, TorrentRemoveArgs};
 
 pub mod app;
@@ -33,7 +34,17 @@ async fn run() -> Result<(), Error> {
     dbg!(client.get_version().await?);
     dbg!(client.get_api_version().await?);
 
-    // dbg!(client.get_main_data(Default::default()).await?);
+    // dbg!(
+    //     client
+    //         .get_torrent_seeds("8658006eaac03dbd7bf6901b4288c22c578a4836".to_string())
+    //         .await?
+    // );
+
+    dbg!(
+        client
+            .get_torrent_hashes("8658006eaac03dbd7bf6901b4288c22c578a4836")
+            .await?
+    );
 
     // dbg!(client.toggle_alt_speed().await?);
     // dbg!(client.get_download_limit().await?);
