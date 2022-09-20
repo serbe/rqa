@@ -332,6 +332,59 @@ pub enum PieceState {
     AlreadyDownloaded = 2,
 }
 
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct AddTorrent {
+    /// URLs separated with newlines
+    pub urls: String,
+    /// Raw data of torrent file. torrents can be presented multiple times.
+    pub torrents: Vec<u8>,
+    /// Download folder
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub savepath: Option<String>,
+    /// Cookie sent to download the .torrent file
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cookie: Option<String>,
+    /// Category for the torrent
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub category: Option<String>,
+    /// Tags for the torrent, split by ','
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<String>,
+    /// Skip hash checking. Possible values are true, false (default)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub skip_checking: Option<String>,
+    /// Add torrents in the paused state. Possible values are true, false (default)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paused: Option<String>,
+    /// Create the root folder. Possible values are true, false, unset (default)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub root_folder: Option<String>,
+    /// Rename torrent
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rename: Option<String>,
+    /// Set torrent upload speed limit. Unit in bytes/second
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub upLimit: Option<i64>,
+    /// Set torrent download speed limit. Unit in bytes/second
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dlLimit: Option<i64>,
+    /// Set torrent share ratio limit
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ratioLimit: Option<f64>,
+    /// Set torrent seeding time limit. Unit in seconds
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub seedingTimeLimit: Option<i64>,
+    /// Whether Automatic Torrent Management should be used
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub autoTMM: Option<bool>,
+    /// Enable sequential download. Possible values are true, false (default)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sequentialDownload: Option<String>,
+    /// Prioritize download first last piece. Possible values are true, false (default)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub firstLastPiecePrio: Option<String>,
+}
+
 impl Client {
     /// Get torrent list
     /// Name: info
@@ -566,213 +619,182 @@ impl Client {
 
     /// Pause torrents
     /// Requires knowing the torrent hashes. You can get it from torrent list.
-    /// 
+    ///
     /// Name: pause
-    /// 
+    ///
     /// Parameters:
-    /// 
+    ///
     /// Parameter	Type	Description
     /// hashes string The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by |, to pause multiple torrents, or set to all, to pause all torrents.
     /// Example:
-    /// 
+    ///
     /// /api/v2/torrents/pause?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     /// Returns:
-    /// 
+    ///
     /// HTTP Status Code	Scenario
     /// 200	All scenarios
-
+    pub async fn pause_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
+        let request = ApiRequest {
+            method: Method::Pause,
+            arguments: Some(Arguments::Form(format!("hashes={}", hashes.join("|")))),
+        };
+        let response = self.send_request(&request).await?;
+        check_default_status(&response, ())
+    }
 
     /// Resume torrents
     /// Requires knowing the torrent hashes. You can get it from torrent list.
+    ///
+    /// Name: resume
+    ///
+    /// Parameters:
+    ///
+    /// Parameter	Type	Description
+    /// hashes string The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by |, to resume multiple torrents, or set to all, to resume all torrents.
+    ///
+    /// Returns:
+    ///
+    /// HTTP Status Code	Scenario
+    /// 200	All scenarios
+    ///
+    pub async fn resume_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
+        let request = ApiRequest {
+            method: Method::Resume,
+            arguments: Some(Arguments::Form(format!("hashes={}", hashes.join("|")))),
+        };
+        let response = self.send_request(&request).await?;
+        check_default_status(&response, ())
+    }
 
-    // Name: resume
+    /// Delete torrents
+    /// Requires knowing the torrent hashes. You can get it from torrent list.
+    ///
+    /// Name: delete
+    ///
+    /// Parameters:
+    ///
+    /// Parameter	Type	Description
+    /// hashes string The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by |, to delete multiple torrents, or set to all, to delete all torrents.
+    /// deleteFiles	If set to true, the downloaded data will also be deleted, otherwise has no effect.
+    ///
+    /// Returns:
+    ///
+    /// HTTP Status Code	Scenario
+    /// 200	All scenarios
+    ///
+    pub async fn delete_torrent(
+        &mut self,
+        hashes: Vec<&str>,
+        delete_files: bool,
+    ) -> Result<(), Error> {
+        let request = ApiRequest {
+            method: Method::Delete,
+            arguments: Some(Arguments::Form(format!(
+                "hashes={}&deleteFiles={}",
+                hashes.join("|"),
+                delete_files
+            ))),
+        };
+        let response = self.send_request(&request).await?;
+        check_default_status(&response, ())
+    }
 
-    // Parameters:
+    /// Recheck torrents
+    /// Requires knowing the torrent hashes. You can get it from torrent list.
+    ///
+    /// Name: recheck
+    ///
+    /// Parameters:
+    ///
+    /// Parameter	Type	Description
+    /// hashes string The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by |, to recheck multiple torrents, or set to all, to recheck all torrents.
+    ///
+    /// Returns:
+    ///
+    /// HTTP Status Code	Scenario
+    /// 200	All scenarios
+    ///
+    pub async fn recheck_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
+        let request = ApiRequest {
+            method: Method::Recheck,
+            arguments: Some(Arguments::Form(format!("hashes={}", hashes.join("|")))),
+        };
+        let response = self.send_request(&request).await?;
+        check_default_status(&response, ())
+    }
 
-    // Parameter	Type	Description
-    //     /// The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by |, to resume multiple torrents, or set to all, to resume all torrents.
-    //    pub hashes: String,
-    // Example:
+    /// Reannounce torrents
+    /// Requires knowing the torrent hashes. You can get it from torrent list.
+    ///
+    /// Name: reannounce
+    ///
+    /// Parameters:
+    ///
+    /// Parameter	Type	Description
+    /// hashes string The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by |, to reannounce multiple torrents, or set to all, to reannounce all torrents.
+    ///
+    /// Returns:
+    ///
+    /// HTTP Status Code	Scenario
+    /// 200	All scenarios
+    ///
+    pub async fn reannounce_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
+        let request = ApiRequest {
+            method: Method::Reannounce,
+            arguments: Some(Arguments::Form(format!("hashes={}", hashes.join("|")))),
+        };
+        let response = self.send_request(&request).await?;
+        check_default_status(&response, ())
+    }
 
-    // /api/v2/torrents/resume?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
-    // Returns:
+    /// Add new torrent
+    /// This method can add torrents from server local file or from URLs. http://, https://, magnet: and bc://bt/ links are supported.
+    ///
+    /// add
+    ///
+    /// Parameters:
+    /// AddTorrent
+    ///
+    /// Returns:
+    ///
+    /// HTTP Status Code	Scenario
+    /// 415	Torrent file is not valid
+    /// 200	All other scenarios
+    pub async fn add_torrent(&mut self, values: AddTorrent) -> Result<String, Error> {
+        let request = ApiRequest {
+            method: Method::Add,
+            arguments: Some(Arguments::Json(json!(values))),
+        };
+        let response = self.send_request(&request).await?;
+        match dbg!(response.status_code().as_u16()) {
+            200 => Ok(String::from_utf8(response.body().to_vec())?),
+            415 => Err(Error::NoValidTorrent),
+            _ => Err(Error::WrongStatusCode),
+        }
+    }
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
-    // Delete torrents
-    // Requires knowing the torrent hashes. You can get it from torrent list.
+    /// Add trackers to torrent
+    /// Requires knowing the torrent hash. You can get it from torrent list.
+    /// 
+    /// POST /api/v2/torrents/addTrackers HTTP/1.1
+    /// User-Agent: Fiddler
+    /// Host: 127.0.0.1
+    /// Cookie: SID=your_sid
+    /// Content-Type: application/x-www-form-urlencoded
+    /// Content-Length: length
+    /// 
+    /// hash=8c212779b4abde7c6bc608063a0d008b7e40ce32&urls=http://192.168.0.1/announce%0Audp://192.168.0.1:3333/dummyAnnounce
+    /// This adds two trackers to torrent with hash 8c212779b4abde7c6bc608063a0d008b7e40ce32. Note %0A (aka LF newline) between trackers. Ampersand in tracker urls MUST be escaped.
+    /// 
+    /// Returns:
+    /// 
+    /// HTTP Status Code	Scenario
+    /// 404	Torrent hash was not found
+    /// 200	All other scenarios
+    /// 
+    /// 
 
-    // Name: delete
-
-    // Parameters:
-
-    // Parameter	Type	Description
-    //     /// The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by |, to delete multiple torrents, or set to all, to delete all torrents.
-    //    pub hashes: String,
-    // deleteFiles	If set to true, the downloaded data will also be deleted, otherwise has no effect.
-    // Example:
-
-    // /api/v2/torrents/delete?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32&deleteFiles=false
-    // Returns:
-
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
-    // Recheck torrents
-    // Requires knowing the torrent hashes. You can get it from torrent list.
-
-    // Name: recheck
-
-    // Parameters:
-
-    // Parameter	Type	Description
-    //     /// The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by |, to recheck multiple torrents, or set to all, to recheck all torrents.
-    //    pub hashes: String,
-    // Example:
-
-    // /api/v2/torrents/recheck?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
-    // Returns:
-
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
-    // Reannounce torrents
-    // Requires knowing the torrent hashes. You can get it from torrent list.
-
-    // Name: reannounce
-
-    // Parameters:
-
-    // Parameter	Type	Description
-    //     /// The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by |, to reannounce multiple torrents, or set to all, to reannounce all torrents.
-    //    pub hashes: String,
-    // Example:
-
-    // /api/v2/torrents/reannounce?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
-    // Returns:
-
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
-    // Add new torrent
-    // This method can add torrents from server local file or from URLs. http://, https://, magnet: and bc://bt/ links are supported.
-
-    // Add torrent from URLs example:
-
-    // POST /api/v2/torrents/add HTTP/1.1
-    // User-Agent: Fiddler
-    // Host: 127.0.0.1
-    // Cookie: SID=your_sid
-    // Content-Type: multipart/form-data; boundary=---------------------------6688794727912
-    // Content-Length: length
-
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="urls"
-
-    // https://torcache.net/torrent/3B1A1469C180F447B77021074DBBCCAEF62611E7.torrent
-    // https://torcache.net/torrent/3B1A1469C180F447B77021074DBBCCAEF62611E8.torrent
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="savepath"
-
-    // C:/Users/qBit/Downloads
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="cookie"
-
-    // ui=28979218048197
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="category"
-
-    // movies
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="skip_checking"
-
-    // true
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="paused"
-
-    // true
-    // -----------------------------6688794727912
-    // Content-Disposition: form-data; name="root_folder"
-
-    // true
-    // -----------------------------6688794727912--
-    // Add torrents from files example:
-
-    // POST /api/v2/torrents/add HTTP/1.1
-    // Content-Type: multipart/form-data; boundary=-------------------------acebdf13572468
-    // User-Agent: Fiddler
-    // Host: 127.0.0.1
-    // Cookie: SID=your_sid
-    // Content-Length: length
-
-    // ---------------------------acebdf13572468
-    // Content-Disposition: form-data; name="torrents"; filename="8f18036b7a205c9347cb84a253975e12f7adddf2.torrent"
-    // Content-Type: application/x-bittorrent
-
-    // file_binary_data_goes_here
-    // ---------------------------acebdf13572468
-    // Content-Disposition: form-data; name="torrents"; filename="UFS.torrent"
-    // Content-Type: application/x-bittorrent
-
-    // file_binary_data_goes_here
-    // ---------------------------acebdf13572468--
-    // The above example will add two torrent files. file_binary_data_goes_here represents raw data of torrent file (basically a byte array).
-
-    // Property	Type	Description
-    //     /// URLs separated with newlines
-    //    pub urls: String,
-    // torrents	raw	Raw data of torrent file. torrents can be presented multiple times.
-    //     /// Download folder
-    //    pub savepath : Option<String>,
-    //     /// Cookie sent to download the .torrent file
-    //    pub cookie : Option<String>,
-    //     /// Category for the torrent
-    //    pub category : Option<String>,
-    //     /// Tags for the torrent, split by ','
-    //    pub tags : Option<String>,
-    //     /// Skip hash checking. Possible values are true, false (default)
-    //    pub skip_checking : Option<String>,
-    //     /// Add torrents in the paused state. Possible values are true, false (default)
-    //    pub paused : Option<String>,
-    //     /// Create the root folder. Possible values are true, false, unset (default)
-    //    pub root_folder : Option<String>,
-    //     /// Rename torrent
-    //    pub rename : Option<String>,
-    //     /// Set torrent upload speed limit. Unit in bytes/second
-    //    pub upLimit : Option<i64>,
-    //     /// Set torrent download speed limit. Unit in bytes/second
-    //    pub dlLimit : Option<i64>,
-    //     /// Set torrent share ratio limit
-    //    pub ratioLimit : Option<f64>,
-    //     /// Set torrent seeding time limit. Unit in seconds
-    //    pub seedingTimeLimit optional since 2.8.1: i64,
-    //     /// Whether Automatic Torrent Management should be used
-    //    pub autoTMM : Option<bool>,
-    //     /// Enable sequential download. Possible values are true, false (default)
-    //    pub sequentialDownload : Option<String>,
-    //     /// Prioritize download first last piece. Possible values are true, false (default)
-    //    pub firstLastPiecePrio : Option<String>,
-    // Returns:
-
-    // HTTP Status Code	Scenario
-    // 415	Torrent file is not valid
-    // 200	All other scenarios
-    // Add trackers to torrent
-    // Requires knowing the torrent hash. You can get it from torrent list.
-
-    // POST /api/v2/torrents/addTrackers HTTP/1.1
-    // User-Agent: Fiddler
-    // Host: 127.0.0.1
-    // Cookie: SID=your_sid
-    // Content-Type: application/x-www-form-urlencoded
-    // Content-Length: length
-
-    // hash=8c212779b4abde7c6bc608063a0d008b7e40ce32&urls=http://192.168.0.1/announce%0Audp://192.168.0.1:3333/dummyAnnounce
-    // This adds two trackers to torrent with hash 8c212779b4abde7c6bc608063a0d008b7e40ce32. Note %0A (aka LF newline) between trackers. Ampersand in tracker urls MUST be escaped.
-
-    // Returns:
-
-    // HTTP Status Code	Scenario
-    // 404	Torrent hash was not found
-    // 200	All other scenarios
-    // Edit trackers
+    /// Edit trackers
     // Name: editTracker
 
     // Parameters:

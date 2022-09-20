@@ -16,6 +16,8 @@ pub enum Error {
     NoTorrentHash,
     #[error("Error convert string to i64")]
     StringToInt(#[from] std::num::ParseIntError),
+    #[error("Torrent file is not valid")]
+    NoValidTorrent,
 
     #[error("NC error")]
     Nc(#[from] netc::error::Error),

@@ -100,7 +100,7 @@ pub enum Arguments {
 //     }
 // }
 
-#[derive(PartialEq)]
+#[derive(Eq, PartialEq)]
 pub enum Method {
     Login,
     Logout,
@@ -130,6 +130,12 @@ pub enum Method {
     Files,
     PieceStates,
     PieceHashes,
+    Pause,
+    Resume,
+    Delete,
+    Recheck,
+    Reannounce,
+    Add,
 }
 
 impl fmt::Display for Method {
@@ -163,6 +169,12 @@ impl fmt::Display for Method {
             Method::Files => write!(f, "torrents/files"),
             Method::PieceStates => write!(f, "torrents/pieceStates"),
             Method::PieceHashes => write!(f, "torrents/pieceHashes"),
+            Method::Pause => write!(f, "torrents/pause"),
+            Method::Resume => write!(f, "torrents/resume"),
+            Method::Delete => write!(f, "torrents/delete"),
+            Method::Recheck => write!(f, "torrents/recheck"),
+            Method::Reannounce => write!(f, "torrents/reannounce"),
+            Method::Add => write!(f, "torrents/add"),
         }
     }
 }
@@ -187,7 +199,7 @@ impl Client {
                 .headers
                 .get("set-cookie")
                 .ok_or(Error::NoSetCookie)?;
-            let cookie = set_cookie.split(';').nth(0).ok_or(Error::NoSID)?;
+            let cookie = set_cookie.split(';').next().ok_or(Error::NoSID)?;
             self.cookie = cookie.to_string();
         }
         Ok(response)
