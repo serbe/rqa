@@ -91,20 +91,20 @@ impl Client {
     /// Name: main
     ///
     /// Parameters:
-    /// Parameter 	Type 	Description
-    /// normal 	bool 	Include normal messages (default: true)
-    /// info 	bool 	Include info messages (default: true)
-    /// warning 	bool 	Include warning messages (default: true)
-    /// critical 	bool 	Include critical messages (default: true)
-    /// last_known_id 	integer 	Exclude messages with "message id" <= last_known_id (default: -1)
+    /// Parameter  Type  Description
+    /// normal  bool  Include normal messages (default: true)
+    /// info  bool  Include info messages (default: true)
+    /// warning  bool  Include warning messages (default: true)
+    /// critical  bool  Include critical messages (default: true)
+    /// last_known_id  integer  Exclude messages with "message id" <= last_known_id (default: -1)
     ///
     /// Example:
     ///
     /// /api/v2/log/main?normal=true&info=true&warning=true&critical=true&last_known_id=-1
     ///
     /// Returns:
-    /// HTTP Status Code 	Scenario
-    /// 200 	All scenarios- see JSON below
+    /// HTTP Status Code  Scenario
+    /// 200  All scenarios- see JSON below
     ///
     /// Vec<LoeEntry>
     ///
@@ -128,12 +128,12 @@ impl Client {
     /// Name: peers
     ///
     /// Parameters:
-    /// Parameter 	Type 	Description
-    /// last_known_id 	integer 	Exclude messages with "message id" <= last_known_id (default: -1)
+    /// Parameter  Type  Description
+    /// last_known_id  integer  Exclude messages with "message id" <= last_known_id (default: -1)
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// Vec<LogPeerEntry>
     ///

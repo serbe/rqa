@@ -572,8 +572,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// String
     ///
@@ -597,8 +597,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// String
     ///
@@ -622,8 +622,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// BuildInfo
     ///
@@ -650,8 +650,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// None
     ///
@@ -673,8 +673,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// Preferences
     ///
@@ -705,8 +705,8 @@ impl Client {
     /// json={"save_path":"C:/Users/Dayman/Downloads","queueing_enabled":false,"scan_dirs":{"C:/Games": 0,"D:/Downloads": 1}}
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// None
     ///
@@ -737,8 +737,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// String
     ///

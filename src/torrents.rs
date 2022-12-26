@@ -398,8 +398,8 @@ impl Client {
     /// /api/v2/torrents/info?filter=downloading&category=sample%20category&sort=ratio
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// array of Torrent
     ///
@@ -426,13 +426,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// hash	string	The hash of the torrent you want to get the generic properties of
+    /// Parameter Type Description
+    /// hash string The hash of the torrent you want to get the generic properties of
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     /// The response is:
     ///
     /// empty, if the torrent hash is invalid
@@ -462,13 +462,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// hash	string	The hash of the torrent you want to get the trackers of
+    /// Parameter Type Description
+    /// hash string The hash of the torrent you want to get the trackers of
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     ///
     pub async fn get_torrent_trackers(&mut self, hash: &str) -> Result<Vec<Tracker>, Error> {
         let arguments = Arguments::Form(format!("hash={}", hash));
@@ -491,13 +491,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// hash	string	The hash of the torrent you want to get the webseeds of
+    /// Parameter Type Description
+    /// hash string The hash of the torrent you want to get the webseeds of
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     ///
     /// Webseed
     pub async fn get_torrent_seeds(&mut self, hash: &str) -> Result<Vec<Webseed>, Error> {
@@ -521,14 +521,14 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// hash	string	The hash of the torrent you want to get the contents of
-    /// indexes optional since 2.8.2	string	The indexes of the files you want to retrieve. indexes can contain multiple values separated by |.
+    /// Parameter Type Description
+    /// hash string The hash of the torrent you want to get the contents of
+    /// indexes optional since 2.8.2 string The indexes of the files you want to retrieve. indexes can contain multiple values separated by |.
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     /// The response is:
     ///
     /// empty, if the torrent hash is invalid
@@ -559,14 +559,14 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hash string The hash of the torrent you want to get the pieces' states of
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     /// The response is:
     ///
     /// empty, if the torrent hash is invalid
@@ -592,14 +592,14 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hash string The hash of the torrent you want to get the pieces' hashes of
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 404 Torrent hash was not found
+    /// 200 All other scenarios- see JSON below
     /// The response is:
     ///
     /// empty, if the torrent hash is invalid
@@ -624,15 +624,15 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hashes string The hashes of the torrents you want to pause. hashes can contain multiple hashes separated by |, to pause multiple torrents, or set to all, to pause all torrents.
     /// Example:
     ///
     /// /api/v2/torrents/pause?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     pub async fn pause_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
         let request = ApiRequest {
             method: Method::Pause,
@@ -649,13 +649,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hashes string The hashes of the torrents you want to resume. hashes can contain multiple hashes separated by |, to resume multiple torrents, or set to all, to resume all torrents.
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn resume_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
         let request = ApiRequest {
@@ -673,14 +673,14 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hashes string The hashes of the torrents you want to delete. hashes can contain multiple hashes separated by |, to delete multiple torrents, or set to all, to delete all torrents.
-    /// deleteFiles	If set to true, the downloaded data will also be deleted, otherwise has no effect.
+    /// deleteFiles If set to true, the downloaded data will also be deleted, otherwise has no effect.
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn delete_torrent(
         &mut self,
@@ -706,13 +706,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hashes string The hashes of the torrents you want to recheck. hashes can contain multiple hashes separated by |, to recheck multiple torrents, or set to all, to recheck all torrents.
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn recheck_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
         let request = ApiRequest {
@@ -730,13 +730,13 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
+    /// Parameter Type Description
     /// hashes string The hashes of the torrents you want to reannounce. hashes can contain multiple hashes separated by |, to reannounce multiple torrents, or set to all, to reannounce all torrents.
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn reannounce_torrent(&mut self, hashes: Vec<&str>) -> Result<(), Error> {
         let request = ApiRequest {
@@ -757,9 +757,9 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 415	Torrent file is not valid
-    /// 200	All other scenarios
+    /// HTTP Status Code Scenario
+    /// 415 Torrent file is not valid
+    /// 200 All other scenarios
     pub async fn add_torrent(&mut self, values: AddTorrent) -> Result<String, Error> {
         let request = ApiRequest {
             method: Method::Add,
@@ -773,33 +773,33 @@ impl Client {
         }
     }
 
-    /// Add trackers to torrent
-    /// Requires knowing the torrent hash. You can get it from torrent list.
-    /// 
-    /// POST /api/v2/torrents/addTrackers HTTP/1.1
-    /// User-Agent: Fiddler
-    /// Host: 127.0.0.1
-    /// Cookie: SID=your_sid
-    /// Content-Type: application/x-www-form-urlencoded
-    /// Content-Length: length
-    /// 
-    /// hash=8c212779b4abde7c6bc608063a0d008b7e40ce32&urls=http://192.168.0.1/announce%0Audp://192.168.0.1:3333/dummyAnnounce
-    /// This adds two trackers to torrent with hash 8c212779b4abde7c6bc608063a0d008b7e40ce32. Note %0A (aka LF newline) between trackers. Ampersand in tracker urls MUST be escaped.
-    /// 
-    /// Returns:
-    /// 
-    /// HTTP Status Code	Scenario
-    /// 404	Torrent hash was not found
-    /// 200	All other scenarios
-    /// 
-    /// 
+    // / Add trackers to torrent
+    // / Requires knowing the torrent hash. You can get it from torrent list.
+    // /
+    // / POST /api/v2/torrents/addTrackers HTTP/1.1
+    // / User-Agent: Fiddler
+    // / Host: 127.0.0.1
+    // / Cookie: SID=your_sid
+    // / Content-Type: application/x-www-form-urlencoded
+    // / Content-Length: length
+    // /
+    // / hash=8c212779b4abde7c6bc608063a0d008b7e40ce32&urls=http://192.168.0.1/announce%0Audp://192.168.0.1:3333/dummyAnnounce
+    // / This adds two trackers to torrent with hash 8c212779b4abde7c6bc608063a0d008b7e40ce32. Note %0A (aka LF newline) between trackers. Ampersand in tracker urls MUST be escaped.
+    // /
+    // / Returns:
+    // /
+    // / HTTP Status Code Scenario
+    // / 404 Torrent hash was not found
+    // / 200 All other scenarios
+    // /
+    // /
 
-    /// Edit trackers
+    // Edit trackers
     // Name: editTracker
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent
     //    pub hash: String,
     //     /// The tracker URL you want to edit
@@ -808,43 +808,43 @@ impl Client {
     //    pub newUrl: String,
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	newUrl is not a valid URL
-    // 404	Torrent hash was not found
-    // 409	newUrl already exists for the torrent
-    // 409	origUrl was not found
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 newUrl is not a valid URL
+    // 404 Torrent hash was not found
+    // 409 newUrl already exists for the torrent
+    // 409 origUrl was not found
+    // 200 All other scenarios
     // Remove trackers
     // Name: removeTrackers
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent
     //    pub hash: String,
     //     /// URLs to remove, separated by |
     //    pub urls: String,
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 404	Torrent hash was not found
-    // 409	All urls were not found
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 404 Torrent hash was not found
+    // 409 All urls were not found
+    // 200 All other scenarios
     // Add peers
     // Name: addPeers
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent, or multiple hashes separated by a pipe |
     //    pub hashes: String,
     //     /// The peer to add, or multiple peers separated by a pipe |. Each peer is a colon-separated host:port
     //    pub peers: String,
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	None of the supplied peers are valid
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 None of the supplied peers are valid
+    // 200 All other scenarios
     // Increase torrent priority
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -852,7 +852,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to increase the priority of. hashes can contain multiple hashes separated by |, to increase the priority of multiple torrents, or set to all, to increase the priority of all torrents.
     //    pub hashes: String,
     // Example:
@@ -860,9 +860,9 @@ impl Client {
     // /api/v2/torrents/increasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 409	Torrent queueing is not enabled
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 409 Torrent queueing is not enabled
+    // 200 All other scenarios
     // Decrease torrent priority
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -870,7 +870,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to decrease the priority of. hashes can contain multiple hashes separated by |, to decrease the priority of multiple torrents, or set to all, to decrease the priority of all torrents.
     //    pub hashes: String,
     // Example:
@@ -878,9 +878,9 @@ impl Client {
     // /api/v2/torrents/decreasePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 409	Torrent queueing is not enabled
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 409 Torrent queueing is not enabled
+    // 200 All other scenarios
     // Maximal torrent priority
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -888,7 +888,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to set to the maximum priority. hashes can contain multiple hashes separated by |, to set multiple torrents to the maximum priority, or set to all, to set all torrents to the maximum priority.
     //    pub hashes: String,
     // Example:
@@ -896,9 +896,9 @@ impl Client {
     // /api/v2/torrents/topPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 409	Torrent queueing is not enabled
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 409 Torrent queueing is not enabled
+    // 200 All other scenarios
     // Minimal torrent priority
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -906,7 +906,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to set to the minimum priority. hashes can contain multiple hashes separated by |, to set multiple torrents to the minimum priority, or set to all, to set all torrents to the minimum priority.
     //    pub hashes: String,
     // Example:
@@ -914,33 +914,33 @@ impl Client {
     // /api/v2/torrents/bottomPrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 409	Torrent queueing is not enabled
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 409 Torrent queueing is not enabled
+    // 200 All other scenarios
     // Set file priority
     // Name: filePrio
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent
     //    pub hash: String,
     //     /// File ids, separated by |
     //    pub id: String,
-    // priority	number	File priority to set (consult torrent contents API for possible values)
+    // priority number File priority to set (consult torrent contents API for possible values)
     // id values correspond to file position inside the array returned by torrent contents API, e.g. id=0 for first file, id=1 for second file, etc.
 
     // Since 2.8.2 it is reccomended to use index field returned by torrent contents API (since the files can be filtered and the index value may differ from the position inside the response array).
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Priority is invalid
-    // 400	At least one file id is not a valid integer
-    // 404	Torrent hash was not found
-    // 409	Torrent metadata hasn't downloaded yet
-    // 409	At least one file id was not found
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Priority is invalid
+    // 400 At least one file id is not a valid integer
+    // 404 Torrent hash was not found
+    // 409 Torrent metadata hasn't downloaded yet
+    // 409 At least one file id was not found
+    // 200 All other scenarios
     // Get torrent download limit
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -978,8 +978,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set torrent share limit
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -995,8 +995,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Get torrent upload limit
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1034,8 +1034,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set torrent location
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1051,11 +1051,11 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Save path is empty
-    // 403	User does not have write access to directory
-    // 409	Unable to create save path directory
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Save path is empty
+    // 403 User does not have write access to directory
+    // 409 Unable to create save path directory
+    // 200 All other scenarios
     // Set torrent name
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1069,10 +1069,10 @@ impl Client {
     // hash=8c212779b4abde7c6bc608063a0d008b7e40ce32&name=This%20is%20a%20test
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 404	Torrent hash is invalid
-    // 409	Torrent name is empty
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 404 Torrent hash is invalid
+    // 409 Torrent name is empty
+    // 200 All other scenarios
     // Set torrent category
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1090,9 +1090,9 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 409	Category name does not exist
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 409 Category name does not exist
+    // 200 All other scenarios
     // Get all categories
     // Name: categories
 
@@ -1114,8 +1114,8 @@ impl Client {
     // }
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Add new category
     // POST /api/v2/torrents/createCategory HTTP/1.1
     // User-Agent: Fiddler
@@ -1129,10 +1129,10 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Category name is empty
-    // 409	Category name is invalid
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Category name is empty
+    // 409 Category name is invalid
+    // 200 All other scenarios
     // Edit category
     // POST /api/v2/torrents/editCategory HTTP/1.1
     // User-Agent: Fiddler
@@ -1144,10 +1144,10 @@ impl Client {
     // category=CategoryName&savePath=/path/to/save/torrents/to
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Category name is empty
-    // 409	Category editing failed
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Category name is empty
+    // 409 Category editing failed
+    // 200 All other scenarios
     // Remove categories
     // POST /api/v2/torrents/removeCategories HTTP/1.1
     // User-Agent: Fiddler
@@ -1161,8 +1161,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Add torrent tags
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1180,8 +1180,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Remove torrent tags
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1199,8 +1199,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Get all tags
     // Name: tags
 
@@ -1216,8 +1216,8 @@ impl Client {
     // ]
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Create tags
     // POST /api/v2/torrents/createTags HTTP/1.1
     // User-Agent: Fiddler
@@ -1231,8 +1231,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Delete tags
     // POST /api/v2/torrents/deleteTags HTTP/1.1
     // User-Agent: Fiddler
@@ -1246,8 +1246,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set automatic torrent management
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1263,8 +1263,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Toggle sequential download
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1272,7 +1272,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to toggle sequential download for. hashes can contain multiple hashes separated by |, to toggle sequential download for multiple torrents, or set to all, to toggle sequential download for all torrents.
     //    pub hashes: String,
     // Example:
@@ -1280,8 +1280,8 @@ impl Client {
     // /api/v2/torrents/toggleSequentialDownload?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set first/last piece priority
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1289,7 +1289,7 @@ impl Client {
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hashes of the torrents you want to toggle the first/last piece priority for. hashes can contain multiple hashes separated by |, to toggle the first/last piece priority for multiple torrents, or set to all, to toggle the first/last piece priority for all torrents.
     //    pub hashes: String,
     // Example:
@@ -1297,8 +1297,8 @@ impl Client {
     // /api/v2/torrents/toggleFirstLastPiecePrio?hashes=8c212779b4abde7c6bc608063a0d008b7e40ce32|54eddd830a5b58480a6143d616a97e3a6c23c439
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set force start
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1314,8 +1314,8 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Set super seeding
     // Requires knowing the torrent hash. You can get it from torrent list.
 
@@ -1331,14 +1331,14 @@ impl Client {
 
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 200	All scenarios
+    // HTTP Status Code Scenario
+    // 200 All scenarios
     // Rename file
     // Name: renameFile
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent
     //    pub hash: String,
     //     /// The old path of the torrent
@@ -1347,16 +1347,16 @@ impl Client {
     //    pub newPath: String,
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Missing newPath parameter
-    // 409	Invalid newPath or oldPath, or newPath already in use
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Missing newPath parameter
+    // 409 Invalid newPath or oldPath, or newPath already in use
+    // 200 All other scenarios
     // Rename folder
     // Name: renameFolder
 
     // Parameters:
 
-    // Parameter	Type	Description
+    // Parameter Type Description
     //     /// The hash of the torrent
     //    pub hash: String,
     //     /// The old path of the torrent
@@ -1365,8 +1365,8 @@ impl Client {
     //    pub newPath: String,
     // Returns:
 
-    // HTTP Status Code	Scenario
-    // 400	Missing newPath parameter
-    // 409	Invalid newPath or oldPath, or newPath already in use
-    // 200	All other scenarios
+    // HTTP Status Code Scenario
+    // 400 Missing newPath parameter
+    // 409 Invalid newPath or oldPath, or newPath already in use
+    // 200 All other scenarios
 }

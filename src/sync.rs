@@ -98,16 +98,16 @@ impl Client {
     /// Name: maindata
     ///
     /// Parameters:
-    /// Parameter 	Type 	Description
-    /// rid 	integer 	Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)
+    /// Parameter  Type  Description
+    /// rid  integer  Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)
     ///
     /// Example:
     ///
     /// /api/v2/sync/maindata?rid=14
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// MainData
     ///
@@ -142,18 +142,18 @@ impl Client {
     /// Name: torrentPeers
     ///
     /// Parameters:
-    /// Parameter 	Type 	Description
-    /// hash 	string 	Torrent hash
-    /// rid 	integer 	Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)
+    /// Parameter  Type  Description
+    /// hash  string  Torrent hash
+    /// rid  integer  Response ID. If not provided, rid=0 will be assumed. If the given rid is different from the one of last server reply, full_update will be true (see the server reply details for more info)
     ///
     /// Example:
     ///
     /// /api/v2/sync/torrentPeers?hash=8c212779b4abde7c6bc608063a0d008b7e40ce32?rid=14
     ///
     /// Returns:
-    /// HTTP Status Code 	Scenario
-    /// 404 	Torrent hash was not found
-    /// 200 	All other scenarios- see JSON below
+    /// HTTP Status Code  Scenario
+    /// 404  Torrent hash was not found
+    /// 200  All other scenarios- see JSON below
     ///
     /// String
     ///

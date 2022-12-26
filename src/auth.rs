@@ -12,14 +12,14 @@ impl Client {
     /// Name: login
     ///
     /// Parameters:
-    /// Parameter 	Type 	Description
-    /// username 	string 	Username used to access the WebUI
-    /// password 	string 	Password used to access the WebUI
+    /// Parameter  Type  Description
+    /// username  string  Username used to access the WebUI
+    /// password  string  Password used to access the WebUI
     ///
     /// Returns:
-    /// HTTP Status Code 	Scenario
-    /// 403 	User's IP is banned for too many failed login attempts
-    /// 200 	All other scenarios
+    /// HTTP Status Code  Scenario
+    /// 403  User's IP is banned for too many failed login attempts
+    /// 200  All other scenarios
     ///
     /// Upon success, the response will contain a cookie with your SID. You must supply the cookie whenever you want to perform an operation that requires authentication.
     ///
@@ -60,8 +60,8 @@ impl Client {
     /// None
     ///
     /// Returns:
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// None
     ///

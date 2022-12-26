@@ -59,8 +59,8 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios- see JSON below
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios- see JSON below
     ///
     /// TransferInfo
     ///
@@ -85,8 +85,8 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     /// The response is 1 if alternative speed limits are enabled, 0 otherwise.
     ///
@@ -111,8 +111,8 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn toggle_alt_speed(&mut self) -> Result<(), Error> {
         let request = ApiRequest {
@@ -132,8 +132,8 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     /// The response is the value of current global download speed limit in bytes/second; this value will be zero if no limit is applied.
     ///
     pub async fn get_download_limit(&mut self) -> Result<i64, Error> {
@@ -153,12 +153,12 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// limit	integer	The global download speed limit to set in bytes/second
+    /// Parameter Type Description
+    /// limit integer The global download speed limit to set in bytes/second
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn set_download_limit(&mut self, limit: i64) -> Result<(), Error> {
         let request = ApiRequest {
@@ -178,8 +178,8 @@ impl Client {
     ///
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     /// The response is the value of current global upload speed limit in bytes/second; this value will be zero if no limit is applied.
     ///
     pub async fn get_upload_limit(&mut self) -> Result<i64, Error> {
@@ -199,12 +199,12 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// limit	integer	The global upload speed limit to set in bytes/second
+    /// Parameter Type Description
+    /// limit integer The global upload speed limit to set in bytes/second
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     pub async fn set_upload_limit(&mut self, limit: i64) -> Result<(), Error> {
         let request = ApiRequest {
             method: Method::SetUploadLimit,
@@ -219,12 +219,12 @@ impl Client {
     ///
     /// Parameters:
     ///
-    /// Parameter	Type	Description
-    /// peers	string	The peer to ban, or multiple peers separated by a pipe |. Each peer is a colon-separated host:port
+    /// Parameter Type Description
+    /// peers string The peer to ban, or multiple peers separated by a pipe |. Each peer is a colon-separated host:port
     /// Returns:
     ///
-    /// HTTP Status Code	Scenario
-    /// 200	All scenarios
+    /// HTTP Status Code Scenario
+    /// 200 All scenarios
     ///
     pub async fn ban_peers(&mut self, peers: &str) -> Result<String, Error> {
         let request = ApiRequest {
