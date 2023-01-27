@@ -15,16 +15,10 @@ use crate::{
     Client, Error,
 };
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Default, Deserialize)]
 pub struct GetMainData {
     /// Exclude messages with "message id" <= last_known_id (default: -1)
     pub rid: i64,
-}
-
-impl Default for GetMainData {
-    fn default() -> Self {
-        Self { rid: 0 }
-    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]

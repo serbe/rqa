@@ -163,7 +163,7 @@ impl Client {
     pub async fn set_download_limit(&mut self, limit: i64) -> Result<(), Error> {
         let request = ApiRequest {
             method: Method::SetDownloadLimit,
-            arguments: Some(Arguments::Form(format!("limit={}", limit))),
+            arguments: Some(Arguments::Form(format!("limit={limit}"))),
         };
         let response = self.send_request(&request).await?;
         check_default_status(&response, ())
@@ -208,7 +208,7 @@ impl Client {
     pub async fn set_upload_limit(&mut self, limit: i64) -> Result<(), Error> {
         let request = ApiRequest {
             method: Method::SetUploadLimit,
-            arguments: Some(Arguments::Form(format!("limit={}", limit))),
+            arguments: Some(Arguments::Form(format!("limit={limit}"))),
         };
         let response = self.send_request(&request).await?;
         check_default_status(&response, ())
@@ -229,7 +229,7 @@ impl Client {
     pub async fn ban_peers(&mut self, peers: &str) -> Result<String, Error> {
         let request = ApiRequest {
             method: Method::BanPeers,
-            arguments: Some(Arguments::Form(format!("peers={}", peers))),
+            arguments: Some(Arguments::Form(format!("peers={peers}"))),
         };
         let response = self.send_request(&request).await?;
         check_default_status(&response, String::from_utf8(response.body().to_vec())?)

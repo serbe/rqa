@@ -712,9 +712,9 @@ impl Client {
     ///
     /// Notes:
     ///
-    ///     There is no need to pass all possible preferences' token:value pairs if you only want to change one option
-    ///     Paths in scan_dirs must exist, otherwise this option will have no effect
-    ///     String values must be quoted; integer and boolean values must never be quoted
+    /// There is no need to pass all possible preferences token:value pairs if you only want to change one option
+    /// Paths in scan_dirs must exist, otherwise this option will have no effect
+    /// String values must be quoted; integer and boolean values must never be quoted
     ///
     /// For a list of possible preference options see Get application preferences
     ///

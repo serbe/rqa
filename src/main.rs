@@ -34,9 +34,14 @@ async fn run() -> Result<(), Error> {
     dbg!(client.get_version().await?);
     dbg!(client.get_api_version().await?);
 
-    let mut v: crate::torrents::AddTorrent = Default::default();
-    v.urls = "magnet:?xt=urn:btih:dc05fd2481d6ca52f767183c70ac383e831f4ed1&dn=rutor.info_The+Sims+4%3A+Deluxe+Edition+%5Bv+1.91.186.1030+%2F+1.91.186.1530+%2B+DLCs%5D+%282014%29+PC+%7C+RePack+от+Chovka&tr=udp://opentor.net:6969&tr=http://retracker.local/announce".to_string();
-    v.category = Some("games".to_string());
+    let urls = "magnet:?xt=urn:btih:dc05fd2481d6ca52f767183c70ac383e831f4ed1&dn=rutor.info_The+Sims+4%3A+Deluxe+Edition+%5Bv+1.91.186.1030+%2F+1.91.186.1530+%2B+DLCs%5D+%282014%29+PC+%7C+RePack+от+Chovka&tr=udp://opentor.net:6969&tr=http://retracker.local/announce".to_string();
+    let category = Some("games".to_string());
+
+    let v: crate::torrents::AddTorrent = torrents::AddTorrent {
+        urls,
+        category,
+        ..Default::default()
+    };
 
     dbg!(client.add_torrent(v).await?);
 
@@ -96,7 +101,7 @@ fn main() {
 
     rt.block_on(async {
         if let Err(err) = run().await {
-            eprintln!("{:?}", err);
+            eprintln!("{err:?}");
         }
     });
 }

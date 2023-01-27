@@ -333,6 +333,7 @@ pub enum PieceState {
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct AddTorrent {
     /// URLs separated with newlines
     pub urls: String,
@@ -352,37 +353,39 @@ pub struct AddTorrent {
     pub tags: Option<String>,
     /// Skip hash checking. Possible values are true, false (default)
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "skip_checking")]
     pub skip_checking: Option<String>,
     /// Add torrents in the paused state. Possible values are true, false (default)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub paused: Option<String>,
     /// Create the root folder. Possible values are true, false, unset (default)
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "root_folder")]
     pub root_folder: Option<String>,
     /// Rename torrent
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rename: Option<String>,
     /// Set torrent upload speed limit. Unit in bytes/second
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub upLimit: Option<i64>,
+    pub up_limit: Option<i64>,
     /// Set torrent download speed limit. Unit in bytes/second
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub dlLimit: Option<i64>,
+    pub dl_limit: Option<i64>,
     /// Set torrent share ratio limit
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ratioLimit: Option<f64>,
+    pub ratio_limit: Option<f64>,
     /// Set torrent seeding time limit. Unit in seconds
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub seedingTimeLimit: Option<i64>,
+    pub seeding_time_limit: Option<i64>,
     /// Whether Automatic Torrent Management should be used
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub autoTMM: Option<bool>,
+    pub auto_t_m_m: Option<bool>,
     /// Enable sequential download. Possible values are true, false (default)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sequentialDownload: Option<String>,
+    pub sequential_download: Option<String>,
     /// Prioritize download first last piece. Possible values are true, false (default)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub firstLastPiecePrio: Option<String>,
+    pub first_last_piece_prio: Option<String>,
 }
 
 impl Client {
@@ -442,7 +445,7 @@ impl Client {
         &mut self,
         hash: String,
     ) -> Result<Option<TorrentProperties>, Error> {
-        let arguments = Arguments::Form(format!("hash={}", hash));
+        let arguments = Arguments::Form(format!("hash={hash}"));
         let request = ApiRequest {
             method: Method::Properties,
             arguments: Some(arguments),
@@ -471,7 +474,7 @@ impl Client {
     /// 200 All other scenarios- see JSON below
     ///
     pub async fn get_torrent_trackers(&mut self, hash: &str) -> Result<Vec<Tracker>, Error> {
-        let arguments = Arguments::Form(format!("hash={}", hash));
+        let arguments = Arguments::Form(format!("hash={hash}"));
         let request = ApiRequest {
             method: Method::Trackers,
             arguments: Some(arguments),
@@ -501,7 +504,7 @@ impl Client {
     ///
     /// Webseed
     pub async fn get_torrent_seeds(&mut self, hash: &str) -> Result<Vec<Webseed>, Error> {
-        let arguments = Arguments::Form(format!("hash={}", hash));
+        let arguments = Arguments::Form(format!("hash={hash}"));
         let request = ApiRequest {
             method: Method::Webseeds,
             arguments: Some(arguments),
@@ -539,7 +542,7 @@ impl Client {
         hash: &str,
         indexes: &str,
     ) -> Result<Vec<File>, Error> {
-        let arguments = Arguments::Form(format!("hash={}&indexes={}", hash, indexes));
+        let arguments = Arguments::Form(format!("hash={hash}&indexes={indexes}"));
         let request = ApiRequest {
             method: Method::Files,
             arguments: Some(arguments),
@@ -575,7 +578,7 @@ impl Client {
     pub async fn get_torrent_states(&mut self, hash: &str) -> Result<Vec<PieceState>, Error> {
         let request = ApiRequest {
             method: Method::PieceStates,
-            arguments: Some(Arguments::Form(format!("hash={}", hash))),
+            arguments: Some(Arguments::Form(format!("hash={hash}"))),
         };
         let response = self.send_request(&request).await?;
         match dbg!(response.status_code().as_u16()) {
@@ -608,7 +611,7 @@ impl Client {
     pub async fn get_torrent_hashes(&mut self, hash: &str) -> Result<Vec<String>, Error> {
         let request = ApiRequest {
             method: Method::PieceHashes,
-            arguments: Some(Arguments::Form(format!("hash={}", hash))),
+            arguments: Some(Arguments::Form(format!("hash={hash}"))),
         };
         let response = self.send_request(&request).await?;
         check_default_status(

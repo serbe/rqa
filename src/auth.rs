@@ -39,8 +39,7 @@ impl Client {
         let request = ApiRequest {
             method: Method::Login,
             arguments: Some(Arguments::Form(format!(
-                "username={}&password={}",
-                username, password
+                "username={username}&password={password}"
             ))),
         };
         let response = self.send_request(&request).await?;
