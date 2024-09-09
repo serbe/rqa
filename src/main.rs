@@ -23,11 +23,11 @@ pub mod torrents;
 pub mod transfer;
 
 async fn run() -> Result<(), Error> {
-    let uri = dotenv::var("QAPI_TARGET").expect("not set QAPI_TARGET");
+    let uri = dotenvy::var("QAPI_TARGET").expect("not set QAPI_TARGET");
     let mut client = Client::new(&uri)?;
 
-    let username = dotenv::var("QAPI_USERNAME").expect("not set QAPI_USERNAME");
-    let password = dotenv::var("QAPI_PASSWORD").expect("not set QAPI_PASSWORD");
+    let username = dotenvy::var("QAPI_USERNAME").expect("not set QAPI_USERNAME");
+    let password = dotenvy::var("QAPI_PASSWORD").expect("not set QAPI_PASSWORD");
 
     client.login(&username, &password).await?;
 
@@ -94,7 +94,7 @@ async fn run() -> Result<(), Error> {
 }
 
 fn main() {
-    dotenv::dotenv().ok().unwrap();
+    dotenvy::dotenv().ok().unwrap();
     env_logger::init();
 
     let rt = Runtime::new().unwrap();

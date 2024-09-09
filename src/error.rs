@@ -24,7 +24,7 @@ pub enum Error {
     #[error("json error")]
     Json(#[from] serde_json::Error),
     #[error("dotenv error")]
-    DotEnv(#[from] dotenv::Error),
+    DotEnvy(#[from] dotenvy::Error),
     #[error("response not success: {0}")]
     BadResponse(String),
     #[error("response no contain arguments")]

@@ -7,7 +7,7 @@
 
 // #[tokio::test]
 // async fn test_torrent_add_meta() {
-//     let uri = dotenv::var("TRPC_TARGET").expect("not set TRPC_TARGET");
+//     let uri = dotenvy::var("TRPC_TARGET").expect("not set TRPC_TARGET");
 
 //     let mut client = Client::new(&uri);
 //     let add_args = TorrentAddArgs::from_meta("tests\\test dir.torrent").unwrap();
@@ -17,7 +17,7 @@
 
 // #[tokio::test]
 // async fn test_torrent_add_uri() {
-//     let uri = dotenv::var("TRPC_TARGET").expect("not set TRPC_TARGET");
+//     let uri = dotenvy::var("TRPC_TARGET").expect("not set TRPC_TARGET");
 
 //     let mut client = Client::new(&uri);
 //     let add_args = TorrentAddArgs::from_file(MAGNET).unwrap();
@@ -28,7 +28,7 @@
 
 // #[tokio::test]
 // async fn test_torrent_add_with_file_and_meta() {
-//     let uri = dotenv::var("TRPC_TARGET").expect("not set TRPC_TARGET");
+//     let uri = dotenvy::var("TRPC_TARGET").expect("not set TRPC_TARGET");
 
 //     let mut client = Client::new(&uri);
 //     let mut add_args = TorrentAddArgs::from_meta("tests\\test dir.torrent").unwrap();
@@ -39,7 +39,7 @@
 
 // #[tokio::test]
 // async fn test_torrent_add_without_file_and_meta() {
-//     let uri = dotenv::var("TRPC_TARGET").expect("not set TRPC_TARGET");
+//     let uri = dotenvy::var("TRPC_TARGET").expect("not set TRPC_TARGET");
 
 //     let mut client = Client::new(&uri);
 //     let mut add_args = TorrentAddArgs::from_meta("tests\\test dir.torrent").unwrap();
@@ -50,7 +50,7 @@
 
 // #[tokio::test]
 // async fn test_get_torrent() {
-//     let uri = dotenv::var("TRPC_TARGET").expect("not set TRPC_TARGET");
+//     let uri = dotenvy::var("TRPC_TARGET").expect("not set TRPC_TARGET");
 
 //     let mut client = Client::new(&uri);
 //     let get_args = TorrentGetArgs {
