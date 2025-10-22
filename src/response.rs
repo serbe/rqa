@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use url::Url;
 
-use crate::{error::Error, Client};
+use crate::{Client, error::Error};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ApiResponse {

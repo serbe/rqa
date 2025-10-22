@@ -2,9 +2,9 @@ use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::{
+    Client, Error,
     request::{ApiRequest, Arguments, Method},
     response::check_default_status,
-    Client, Error,
 };
 
 #[derive(Debug, Serialize, Deserialize)]

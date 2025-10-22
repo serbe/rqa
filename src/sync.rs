@@ -8,11 +8,11 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 use crate::{
+    Client, Error,
     request::{ApiRequest, Arguments, Method},
     response::check_default_status,
     torrents::Torrent,
     transfer::ConnectionStatus,
-    Client, Error,
 };
 
 #[derive(Debug, Serialize, Default, Deserialize)]

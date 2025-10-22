@@ -1,9 +1,9 @@
 /// All Authentication API methods are under "auth", e.g.: /api/v2/auth/methodName.
 /// qBittorrent uses cookie-based authentication.
 use crate::{
+    Client, Error,
     request::{ApiRequest, Arguments, Method},
     response::check_default_status,
-    Client, Error,
 };
 
 impl Client {

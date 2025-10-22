@@ -4,7 +4,7 @@
 // use serde_json::json;
 // use crate::sync::GetPeersData;
 use tokio::runtime::Runtime;
-use tokio::time::{sleep, Duration};
+use tokio::time::{Duration, sleep};
 
 use client::Client;
 use error::Error;

@@ -5,9 +5,9 @@ use serde_json::json;
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::{
+    Client, Error,
     request::{ApiRequest, Arguments, Method},
     response::check_default_status,
-    Client, Error,
 };
 
 /// All Application API methods are under "app", e.g.: /api/v2/app/methodName
